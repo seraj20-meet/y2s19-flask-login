@@ -19,6 +19,12 @@ def login():
         return logged_in()
     else:
         return home()
+@app.route('/seejo/<string:name>', methods=['POST'])
+def seejo(name):
+    update(login_session['name'], request.form['food'])
+    sscreen=get_user(login_session['name']).fav_food
+
+    return render_template('logged.html',screen=sscreen)
 
 
 @app.route('/signup', methods=['POST'])
@@ -37,6 +43,7 @@ def logged_in():
 
 @app.route('/logout')
 def logout():
+    login_session.clear()
     return home()
 
 
